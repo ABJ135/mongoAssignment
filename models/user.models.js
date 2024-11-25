@@ -3,18 +3,20 @@ const {Schema} = require ('mongoose')
 
 const userSchema = new Schema ({
 
-    bookId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Book',
-        required:false
-    },
     name:{type:String,required:true},
     email:{type:String,required:true,unique:true},
     password:{type:String,required:true},
     age:Number,
     role:{type:String,required:true},
-    createdAt:{type:Date,default:Date.now()}
+    createdAt:{type:Date,default:Date.now()},
+    borrowedBook:{
+        type:[{type:mongoose.Schema.Types.ObjectId,
+        ref:'Book',
+        required:false}],
+        maxlength: 3
+    }
 })
+    
 
 const user = mongoose.model('user',userSchema)
 
