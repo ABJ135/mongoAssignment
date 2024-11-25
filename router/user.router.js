@@ -11,6 +11,10 @@ router.get('/getUserById/:id',controller.getUserById)
 
 router.put('/updateUser/:id',controller.updateUser)
 
+router.put('/:Id/borrow/:bookId',controller.borrow)
+
 router.delete('/deleteUser',controller.deleteUser)
+
+
 
 module.exports = router

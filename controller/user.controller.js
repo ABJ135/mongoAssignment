@@ -35,10 +35,40 @@ const deleteUser = async (req,res)=>{
     await user.deleteOne(id);
 }
 
+const borrow = async (req,res)=>{
+    const userId = req.params.Id
+    const bookId = req.params.bookId
+    // res.json(userId)
+   
+        
+        // const obj = await user.findById(userId)
+        // res.json(obj)
+
+        // if(!obj){
+        //     return res.status(400).json("user not found")
+        // }
+
+        // if(obj.borrowedBook.length === 3){
+        //   return  res.status(400).json("user cannot borrow more books")
+        // }
+
+        // if (obj.borrowedBook.includes(bookId)) {
+        //     return res.status(400).json("Book already borrowed");
+        // }
+
+        // obj.borrowedBook.push(bookId);
+
+        // await obj.save();
+
+        // res.status(200).json("Book borrowed successfully")
+    
+}
+
 module.exports  = {
     createUser,
     getAllUsers,
     getUserById,
     updateUser,
-    deleteUser
+    deleteUser,
+    borrow
 }
