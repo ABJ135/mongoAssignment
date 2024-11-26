@@ -15,6 +15,8 @@ router.put('/:Id/borrow/:bookId',controller.borrow)
 
 router.put('/:id/return/:bookId',controller.returnBook)
 
+router.get('/:id/borrowedBooks',controller.borrowedBooks)
+
 router.delete('/deleteUser',controller.deleteUser)
 
 

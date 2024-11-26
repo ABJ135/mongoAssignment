@@ -14,7 +14,7 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const id = req.params.id;
-    const object = await user.findById(id).populate("bookId");
+    const object = await user.findById(id);
     res.json(object);
   } catch (error) {
     console.log(error);
@@ -93,6 +93,17 @@ const returnBook = async(req,res) => {
     }
 }
 
+const borrowedBooks = async(req,res) => {
+    try {
+        const id = req.params.id;
+        const object = await user.findById(id).populate("borrowedBook");
+        res.json(object);
+      } catch (error) {
+        console.log(error);
+        res.send("Error finding user");
+      }
+}
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -100,5 +111,6 @@ module.exports = {
   updateUser,
   deleteUser,
   borrow,
-  returnBook
+  returnBook,
+  borrowedBooks
 };
