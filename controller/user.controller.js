@@ -65,6 +65,34 @@ const borrow = async (req, res) => {
   }
 };
 
+const returnBook = async(req,res) => {
+    const userId = req.params.id
+    const bookId = req.params.bookId
+    console.log(userId,"userid",bookId,"bookId")
+
+    try{
+        const obj = await user.findById(userId)
+
+        if(!obj){
+            res.status(400).json("user not found")
+        }
+
+        if(obj.borrowedBook.length === 0){
+            res.status(400).json("user has not borrowed any book")
+        }
+
+        const index = obj.borrowedBook.findIndex(book => book.toString() === bookId);
+        obj.borrowedBook.splice(index,1)
+
+        await obj.save();
+        res.status(200).json("Book removed successfully")
+    }
+    catch(error)
+    {
+        res.status(500).json(error,"can not return book")
+    }
+}
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -72,4 +100,5 @@ module.exports = {
   updateUser,
   deleteUser,
   borrow,
+  returnBook
 };
