@@ -13,6 +13,8 @@ router.put('/updateUser/:id',controller.updateUser)
 
 router.put('/:Id/borrow/:bookId',controller.borrow)
 
+router.put('/:id/return/:bookId',controller.returnBook)
+
 router.delete('/deleteUser',controller.deleteUser)
 
 
