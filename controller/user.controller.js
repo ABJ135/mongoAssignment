@@ -104,6 +104,30 @@ const borrowedBooks = async(req,res) => {
       }
 }
 
+const login = async(req,res)=>{
+  try
+  {
+    const data = req.body
+    const email = await user.findOne({email:req.body.email})
+
+    if(!email){
+      res.status(400).json("user not available")
+    }
+    else{
+      if(email.password === req.body.password){
+        res.status(200).json("Login successfully")
+      }
+      else{
+        res.status(500).json("wrong password")
+      }
+    }
+  }catch(error)
+  {
+    res.status(500).json("Error")
+  }
+  
+}
+
 module.exports = {
   createUser,
   getAllUsers,
@@ -112,5 +136,6 @@ module.exports = {
   deleteUser,
   borrow,
   returnBook,
-  borrowedBooks
+  borrowedBooks,
+  login
 };
