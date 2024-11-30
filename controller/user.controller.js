@@ -113,14 +113,15 @@ const login = async (req, res) => {
     const data = req.body;
     const email = await user.findOne({ email: req.body.email });
 
-    if (email && email.password === req.body.password) {
-      res.status(400).json("Login Successfull");
+    if (email && await bcrypt.compare(req.body.password, email.password)) {
+      res.status(200).json("Login Successfull");
     } else {
       res.status(500).json("wrong Credentials");
     }
   } catch (error) {
     res.status(500).json("Error");
   }
+  
 };
 
 module.exports = {
