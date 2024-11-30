@@ -5,7 +5,7 @@ const createUser = async (req, res) => {
   const data = req.body;
   let pass = data.password;
 
-  pass =await bcrypt.hash(pass, 10);
+  pass = await bcrypt.hash(pass, 10);
   data.password = pass;
   const object = await user.create(data);
   res.json({ message: "Object created Successfully", object });
@@ -113,15 +113,21 @@ const login = async (req, res) => {
     const data = req.body;
     const email = await user.findOne({ email: req.body.email });
 
-    if (email && await bcrypt.compare(req.body.password, email.password)) {
+    if (email && validate(req.body.password,email.password)) {
       res.status(200).json("Login Successfull");
     } else {
       res.status(500).json("wrong Credentials");
     }
   } catch (error) {
+    console.log(error)
     res.status(500).json("Error");
+    
   }
   
+};
+const validate = async (plainPass,hash) => {
+  const v = await bcrypt.compare(plainPass, hash);
+  return v;
 };
 
 module.exports = {
