@@ -1,5 +1,7 @@
 const user = require("../models/user.models");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 const createUser = async (req, res) => {
   const data = req.body;
@@ -114,7 +116,9 @@ const login = async (req, res) => {
     const email = await user.findOne({ email: req.body.email });
 
     if (email && validate(req.body.password,email.password)) {
-      res.status(200).json("Login Successfull");
+      const token = jwt.sign({id:email._id},process.env.Jwt_Key)
+    res.status(200).json({"message":"Login Successfull",token:token});
+      
     } else {
       res.status(500).json("wrong Credentials");
     }
