@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
+
 const createUser = async (req, res) => {
   const data = req.body;
   let pass = data.password;
